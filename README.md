@@ -50,7 +50,7 @@
 
 # Задание 2. Проектирование микросервисной архитектуры
 
-Также добавлю самую важную диаграмму для To-Be
+Также добавлю очень важную диаграмму для To-Be
 **Диаграмма контекста (Context)**  
 [Диаграмма контекста](https://github.com/AndKiRiLL/architecture-pro-warmhouse/blob/warmhouse/schemas/To-Be/Diagram-context.svg)
 
