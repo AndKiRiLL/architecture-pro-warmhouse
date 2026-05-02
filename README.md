@@ -55,8 +55,7 @@
 [Диаграмма контекста To-Be](https://github.com/AndKiRiLL/architecture-pro-warmhouse/blob/warmhouse/schemas/To-Be/Diagram-context.svg)
 
 **Диаграмма контейнеров (Containers)**
-
-Добавьте диаграмму.
+[Диаграмма контекста To-Be](https://github.com/AndKiRiLL/architecture-pro-warmhouse/blob/warmhouse/schemas/To-Be/Diagram-container.svg)
 
 **Диаграмма компонентов (Components)**
 
