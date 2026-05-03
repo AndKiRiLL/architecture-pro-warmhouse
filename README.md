@@ -59,13 +59,13 @@
 
 **Диаграммы компонентов (Components)**  
 
-**Диаграммы компонентов клиентской логики (Components)**  
+Диаграммы клиентской логики
 
 [Диаграмма компонентов "Мобильное приложение"](https://github.com/AndKiRiLL/architecture-pro-warmhouse/blob/warmhouse/diagrams/To-Be/services/client-logic/Diagram-components-mobile-app.svg)
 
 [Диаграмма компонентов "Веб приложение"](https://github.com/AndKiRiLL/architecture-pro-warmhouse/blob/warmhouse/diagrams/To-Be/services/client-logic/Diagram-components-web-app.svg)
 
-**Диаграммы компонентов бизнес логики (Components)**  
+Диаграммы компонентов бизнес логики
 
 [Диаграмма компонентов "Сервис Пользователей"](https://github.com/AndKiRiLL/architecture-pro-warmhouse/blob/warmhouse/diagrams/To-Be/services/business-logic/Diagram-components-user-service.svg)
 
@@ -75,7 +75,7 @@
 
 [Диаграмма компонентов "Сервис Каталога и Платежей"](https://github.com/AndKiRiLL/architecture-pro-warmhouse/blob/warmhouse/diagrams/To-Be/services/business-logic/Diagram-components-catalog-and-payments-service.svg)
 
-**Диаграммы компонентов технической логики (Components)**  
+Диаграммы компонентов технической логики
 
 [Диаграмма компонентов "API-шлюз"](https://github.com/AndKiRiLL/architecture-pro-warmhouse/blob/warmhouse/diagrams/To-Be/services/tech-logic/Diagram-components-api-gateway.svg)
 
