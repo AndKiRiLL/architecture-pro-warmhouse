@@ -59,31 +59,28 @@
 
 **Диаграммы компонентов (Components)**  
 
-Диаграммы клиентской логики
+ - Диаграммы клиентской логики
+	- [Диаграмма компонентов "Мобильное приложение"](https://github.com/AndKiRiLL/architecture-pro-warmhouse/blob/warmhouse/diagrams/To-Be/services/client-logic/Diagram-components-mobile-app.svg)
 
-[Диаграмма компонентов "Мобильное приложение"](https://github.com/AndKiRiLL/architecture-pro-warmhouse/blob/warmhouse/diagrams/To-Be/services/client-logic/Diagram-components-mobile-app.svg)
+	- [Диаграмма компонентов "Веб приложение"](https://github.com/AndKiRiLL/architecture-pro-warmhouse/blob/warmhouse/diagrams/To-Be/services/client-logic/Diagram-components-web-app.svg)
 
-[Диаграмма компонентов "Веб приложение"](https://github.com/AndKiRiLL/architecture-pro-warmhouse/blob/warmhouse/diagrams/To-Be/services/client-logic/Diagram-components-web-app.svg)
+ - Диаграммы компонентов бизнес логики
+	- [Диаграмма компонентов "Сервис Пользователей"](https://github.com/AndKiRiLL/architecture-pro-warmhouse/blob/warmhouse/diagrams/To-Be/services/business-logic/Diagram-components-user-service.svg)
 
-Диаграммы компонентов бизнес логики
+	- [Диаграмма компонентов "Сервис Устройств и Сценариев"](https://github.com/AndKiRiLL/architecture-pro-warmhouse/blob/warmhouse/diagrams/To-Be/services/business-logic/Diagram-components-device-and-scenario-service.svg)
 
-[Диаграмма компонентов "Сервис Пользователей"](https://github.com/AndKiRiLL/architecture-pro-warmhouse/blob/warmhouse/diagrams/To-Be/services/business-logic/Diagram-components-user-service.svg)
+	- [Диаграмма компонентов "Сервис Телеметрии"](https://github.com/AndKiRiLL/architecture-pro-warmhouse/blob/warmhouse/diagrams/To-Be/services/business-logic/Diagram-components-telemetry-service.svg)
 
-[Диаграмма компонентов "Сервис Устройств и Сценариев"](https://github.com/AndKiRiLL/architecture-pro-warmhouse/blob/warmhouse/diagrams/To-Be/services/business-logic/Diagram-components-device-and-scenario-service.svg)
+	- [Диаграмма компонентов "Сервис Каталога и Платежей"](https://github.com/AndKiRiLL/architecture-pro-warmhouse/blob/warmhouse/diagrams/To-Be/services/business-logic/Diagram-components-catalog-and-payments-service.svg)
 
-[Диаграмма компонентов "Сервис Телеметрии"](https://github.com/AndKiRiLL/architecture-pro-warmhouse/blob/warmhouse/diagrams/To-Be/services/business-logic/Diagram-components-telemetry-service.svg)
+ - Диаграммы компонентов технической логики
+	- [Диаграмма компонентов "API-шлюз"](https://github.com/AndKiRiLL/architecture-pro-warmhouse/blob/warmhouse/diagrams/To-Be/services/tech-logic/Diagram-components-api-gateway.svg)
 
-[Диаграмма компонентов "Сервис Каталога и Платежей"](https://github.com/AndKiRiLL/architecture-pro-warmhouse/blob/warmhouse/diagrams/To-Be/services/business-logic/Diagram-components-catalog-and-payments-service.svg)
+	- [Диаграмма компонентов "Транзакционная БД"](https://github.com/AndKiRiLL/architecture-pro-warmhouse/blob/warmhouse/diagrams/To-Be/services/tech-logic/Diagram-components-transaction-bd.svg)
 
-Диаграммы компонентов технической логики
+	- [Диаграмма компонентов "Брокер сообщений"](https://github.com/AndKiRiLL/architecture-pro-warmhouse/blob/warmhouse/diagrams/To-Be/services/tech-logic/Diagram-components-broker-message.svg)
 
-[Диаграмма компонентов "API-шлюз"](https://github.com/AndKiRiLL/architecture-pro-warmhouse/blob/warmhouse/diagrams/To-Be/services/tech-logic/Diagram-components-api-gateway.svg)
-
-[Диаграмма компонентов "Транзакционная БД"](https://github.com/AndKiRiLL/architecture-pro-warmhouse/blob/warmhouse/diagrams/To-Be/services/tech-logic/Diagram-components-transaction-bd.svg)
-
-[Диаграмма компонентов "Брокер сообщений"](https://github.com/AndKiRiLL/architecture-pro-warmhouse/blob/warmhouse/diagrams/To-Be/services/tech-logic/Diagram-components-broker-message.svg)
-
-[Диаграмма компонентов "БД Временных рядов"](https://github.com/AndKiRiLL/architecture-pro-warmhouse/blob/warmhouse/diagrams/To-Be/services/tech-logic/Diagram-components-bd-timeseries.svg)
+	- [Диаграмма компонентов "БД Временных рядов"](https://github.com/AndKiRiLL/architecture-pro-warmhouse/blob/warmhouse/diagrams/To-Be/services/tech-logic/Diagram-components-bd-timeseries.svg)
 
 **Диаграмма кода (Code)**
 
