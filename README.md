@@ -59,7 +59,7 @@
 
 **Диаграммы компонентов (Components)**  
 
- - Диаграммы клиентской логики
+ - Диаграммы компонентов клиентской логики
 	- [Диаграмма компонентов "Мобильное приложение"](https://github.com/AndKiRiLL/architecture-pro-warmhouse/blob/warmhouse/diagrams/To-Be/services/client-logic/Diagram-components-mobile-app.svg)
 
 	- [Диаграмма компонентов "Веб приложение"](https://github.com/AndKiRiLL/architecture-pro-warmhouse/blob/warmhouse/diagrams/To-Be/services/client-logic/Diagram-components-web-app.svg)
