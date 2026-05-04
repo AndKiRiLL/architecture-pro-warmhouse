@@ -73,7 +73,8 @@
     <div class="warmhouse-selector-container">
         <label for="api-select">Выберите микросервис:</label>
         <select id="api-select">
-            <option value="user-service-api.json">User Service</option>
+            <option value="user-service-api.json">User & Home Service</option>
+            <option value="device-and-scenario-service-api.json">Device & Scenario Service</option>
         </select>
     </div>
     
@@ -102,7 +103,14 @@
                 .then(spec => {
                     if (currentUI) {
                         // Обновляем существующий UI
-                        currentUI.spec = spec;
+                         currentUI = SwaggerUIBundle({
+                            spec: spec,
+                            dom_id: '#swagger-ui',
+                            presets: [SwaggerUIBundle.presets.apis],
+                            layout: 'BaseLayout',
+                            docExpansion: 'list',
+                            defaultModelsExpandDepth: 1
+                        });
                     } else {
                         // Создаём новый UI
                         currentUI = SwaggerUIBundle({
