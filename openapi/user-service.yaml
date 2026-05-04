@@ -14,7 +14,7 @@ servers:
     description: Development server
 
 paths:
-  /registration:  # ← Здесь было пропущено двоеточие!
+  /registration:
     post:
       summary: Регистрация
       requestBody:
@@ -35,7 +35,7 @@ paths:
         '500':
           description: Ошибка сервера
 
-  /login:  # Добавим эндпоинт для входа
+  /login:
     post:
       summary: Авторизация
       requestBody:
@@ -77,12 +77,13 @@ components:
         name:
           type: string
           example: Kirill
-        password:
-          type: string
-          example: Qwerty123
         email:
           type: string
           example: example@mail.com
+        password:
+          type: string
+          example: Qwerty123
+          writeOnly: true
         homes:
           type: array
           items:
@@ -91,6 +92,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Role'
+      required:
+        - name
+        - email
+        - password
 
     Home:
       type: object
@@ -109,4 +114,7 @@ components:
           type: integer
         name:
           type: string
-          enum: [ADMIN, USER, GUEST]
+          enum:
+            - ADMIN
+            - USER
+            - GUEST

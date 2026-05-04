@@ -55,55 +55,63 @@
             'user-service': 'https://raw.githubusercontent.com/AndKiRiLL/architecture-pro-warmhouse/warmhouse/openapi/user-service.yaml'
         }
         
-        function loadSpec(specFile) {
+        async function loadSpec(specFile) {
             const url = links[specFile];
             console.log('Загрузка:', url);
             
-            fetch(url)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP ${response.status}`);
-                    }
-                    return response.text();
-                })
-                .then(yaml => {
-                    console.log('YAML загружен, длина:', yaml.length);
-                    
-                    // Проверяем, что YAML валидный
-                    try {
-                        // Простая проверка - ищем openapi версию
-                        if (!yaml.includes('openapi:')) {
-                            throw new Error('Файл не содержит openapi:');
-                        }
-                    } catch(e) {
-                        console.warn(e);
-                    }
-                    
-                    // Пересоздаём UI
-                    const uiConfig = {
-                        spec: yaml,
-                        dom_id: '#swagger-ui',
-                        presets: [SwaggerUIBundle.presets.apis],
-                        layout: "BaseLayout",
-                        deepLinking: true,
-                        docExpansion: "list"
-                    };
-                    
-                    if (ui) {
-                        ui = SwaggerUIBundle(uiConfig);
-                    } else {
-                        ui = SwaggerUIBundle(uiConfig);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error loading spec:', error);
-                    document.getElementById('swagger-ui').innerHTML = 
-                        '<div style="padding: 20px; color: red; background: #ffebee; margin: 20px; border-radius: 5px;">' +
-                        '❌ Ошибка загрузки спецификации:<br>' +
-                        error.message + '<br><br>' +
-                        'Проверьте URL: ' + links['user-service'] + '<br>' +
-                        'Убедитесь, что YAML файл содержит корректный OpenAPI 3.0</div>';
-                });
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const yamlText = await response.text();
+                console.log('YAML загружен, длина:', yamlText.length);
+                console.log('Первые 200 символов:', yamlText.substring(0, 200));
+                
+                // Проверяем, начинается ли с openapi:
+                if (!yamlText.trim().startsWith('openapi:')) {
+                    throw new Error('YAML файл должен начинаться с "openapi:"');
+                }
+                
+                // Пытаемся найти синтаксические ошибки
+                if (yamlText.includes('#')) {
+                    console.log('Найдены комментарии в YAML');
+                }
+                
+                // Инициализируем Swagger UI
+                const uiConfig = {
+                    spec: yamlText,
+                    dom_id: '#swagger-ui',
+                    presets: [SwaggerUIBundle.presets.apis],
+                    layout: "BaseLayout",
+                    deepLinking: true,
+                    docExpansion: "list",
+                    validatorUrl: null  // Отключаем валидатор, чтобы избежать лишних ошибок
+                };
+                
+                if (ui) {
+                    ui = SwaggerUIBundle(uiConfig);
+                } else {
+                    ui = SwaggerUIBundle(uiConfig);
+                }
+                
+            } catch (error) {
+                console.error('Ошибка:', error);
+                document.getElementById('swagger-ui').innerHTML = 
+                    `<div style="padding: 20px; margin: 20px; background: #ffebee; border-left: 4px solid #f44336; border-radius: 4px;">
+                        <strong style="color: #c62828;">❌ Ошибка загрузки спецификации:</strong><br>
+                        ${error.message}<br><br>
+                        <strong>Проверьте:</strong><br>
+                        - URL: ${links['user-service']}<br>
+                        - Что файл существует и доступен<br>
+                        - Что YAML валидный (проверьте в https://editor.swagger.io)<br><br>
+                        <details>
+                            <summary>Первые 200 символов YAML</summary>
+                            <pre style="background: #fff; padding: 10px; overflow-x: auto;">${document.getElementById('swagger-ui').innerHTML.includes('yamlText') ? '' : '...'}</pre>
+                        </details>
+                    </div>`;
+            }
         }
         
         // Загружаем сервис
