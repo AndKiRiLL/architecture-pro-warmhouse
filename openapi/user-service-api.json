@@ -20,9 +20,9 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["name", "password"],
+                "required": ["username", "password"],
                 "properties": {
-                  "name": { "type": "string" },
+                  "username": { "type": "string" },
                   "password": { "type": "string" },
                   "email": { "type": "string" }
                 }
@@ -57,7 +57,7 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "name": { "type": "string" },
+                  "username": { "type": "string" },
                   "password": { "type": "string" }
                 }
               }
@@ -97,7 +97,7 @@
         }
       }
     },
-    
+
     "/users/me": {
       "patch": {
         "summary": "Update current user",
