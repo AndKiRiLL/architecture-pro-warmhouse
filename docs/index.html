@@ -3,119 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API Documentation - Microservices</title>
-    <link rel="stylesheet" type="text/css" href="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui.css" />
+    <title>Warmhouse API Documentation</title>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui.css">
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-        }
-        .topbar {
-            background-color: #1b1b1b;
-            padding: 10px;
-            color: white;
-            text-align: center;
-        }
-        .service-selector {
-            padding: 20px;
-            background: #f8f8f8;
-            border-bottom: 1px solid #e0e0e0;
-            text-align: center;
-        }
-        .service-selector button {
-            margin: 0 10px;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-        }
-        .service-selector button:hover {
-            background-color: #0056b3;
-        }
+        body { margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+        .header { background: #1b1b1b; color: white; padding: 20px; text-align: center; }
+        .header h1 { margin: 0; }
+        .header p { margin: 5px 0 0; opacity: 0.8; }
+        .error { padding: 20px; margin: 20px; background: #ffebee; border-left: 4px solid #f44336; color: #c62828; border-radius: 4px; }
     </style>
 </head>
 <body>
-    <div class="topbar">
+    <div class="header">
         <h1>🏠 Warmhouse Microservices API</h1>
         <p>Документация микросервисов</p>
-    </div>
-    <div class="service-selector">
-        <button onclick="loadSpec('user-service')">👤 User Service</button>
     </div>
     <div id="swagger-ui"></div>
 
     <script src="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui-bundle.js"></script>
     <script>
-        let ui;
-
-        const links = {
-            'user-service': 'https://raw.githubusercontent.com/AndKiRiLL/architecture-pro-warmhouse/warmhouse/openapi/user-service.yaml'
-        }
+        // Используем НОВЫЙ файл
+        const specUrl = 'https://raw.githubusercontent.com/AndKiRiLL/architecture-pro-warmhouse/warmhouse/openapi/user-service-api.yaml';
         
-        async function loadSpec(specFile) {
-            const url = links[specFile];
-            console.log('Загрузка:', url);
-            
-            try {
-                const response = await fetch(url);
-                if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-                }
-                
-                const yamlText = await response.text();
-                console.log('YAML загружен, длина:', yamlText.length);
-                console.log('Первые 200 символов:', yamlText.substring(0, 200));
-                
-                // Проверяем, начинается ли с openapi:
-                if (!yamlText.trim().startsWith('openapi:')) {
-                    throw new Error('YAML файл должен начинаться с "openapi:"');
-                }
-                
-                // Пытаемся найти синтаксические ошибки
-                if (yamlText.includes('#')) {
-                    console.log('Найдены комментарии в YAML');
-                }
-                
-                // Инициализируем Swagger UI
-                const uiConfig = {
-                    spec: yamlText,
+        fetch(specUrl)
+            .then(response => {
+                if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                return response.text();
+            })
+            .then(yaml => {
+                console.log('✅ YAML загружен, размер:', yaml.length, 'байт');
+                SwaggerUIBundle({
+                    spec: yaml,
                     dom_id: '#swagger-ui',
                     presets: [SwaggerUIBundle.presets.apis],
-                    layout: "BaseLayout",
-                    deepLinking: true,
-                    docExpansion: "list",
-                    validatorUrl: null  // Отключаем валидатор, чтобы избежать лишних ошибок
-                };
-                
-                if (ui) {
-                    ui = SwaggerUIBundle(uiConfig);
-                } else {
-                    ui = SwaggerUIBundle(uiConfig);
-                }
-                
-            } catch (error) {
-                console.error('Ошибка:', error);
+                    layout: 'BaseLayout',
+                    docExpansion: 'list'
+                });
+            })
+            .catch(error => {
                 document.getElementById('swagger-ui').innerHTML = 
-                    `<div style="padding: 20px; margin: 20px; background: #ffebee; border-left: 4px solid #f44336; border-radius: 4px;">
-                        <strong style="color: #c62828;">❌ Ошибка загрузки спецификации:</strong><br>
+                    `<div class="error">
+                        <strong>❌ Ошибка загрузки API документации</strong><br>
                         ${error.message}<br><br>
-                        <strong>Проверьте:</strong><br>
-                        - URL: ${links['user-service']}<br>
-                        - Что файл существует и доступен<br>
-                        - Что YAML валидный (проверьте в https://editor.swagger.io)<br><br>
-                        <details>
-                            <summary>Первые 200 символов YAML</summary>
-                            <pre style="background: #fff; padding: 10px; overflow-x: auto;">${document.getElementById('swagger-ui').innerHTML.includes('yamlText') ? '' : '...'}</pre>
-                        </details>
+                        <a href="${specUrl}" target="_blank" style="color: #007bff;">Открыть YAML файл напрямую</a>
                     </div>`;
-            }
-        }
-        
-        // Загружаем сервис
-        loadSpec('user-service');
+                console.error('Ошибка:', error);
+            });
     </script>
 </body>
 </html>
