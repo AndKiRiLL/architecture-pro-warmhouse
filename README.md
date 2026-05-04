@@ -85,7 +85,7 @@
 **Диаграмма кода (Code)**
 
 - Диаграммы кода User Service
-	- [Диаграмма кода "User Manager"](https://github.com/AndKiRiLL/architecture-pro-warmhouse/blob/warmhouse/diagrams/To-Be/codes/business-logic/Diagram-codes-user-manager.svg)
+	- [Диаграмма кода "User Manager"](https://github.com/AndKiRiLL/architecture-pro-warmhouse/blob/warmhouse/diagrams/To-Be/codes/business-logic/user-service/Diagram-codes-user-manager.svg)
 
 # Задание 3. Разработка ER-диаграммы
 
