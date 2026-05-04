@@ -211,7 +211,7 @@
     "/ws/telemetry/{deviceId}": {
       "get": {
         "summary": "WebSocket real-time telemetry",
-        "description": "WebSocket подключение для получения телеметрии в реальном времени",
+        "description": "WebSocket подключение для получения телеметрии в реальном времени\n\n**Формат сообщений от сервера:**\n```json\n{\n  \"deviceId\": 1,\n  \"timestamp\": 1700000000,\n  \"metrics\": { \"temperature\": 23.5, \"humidity\": 60 }\n}\n```",
         "parameters": [
           {
             "name": "deviceId",
@@ -221,16 +221,24 @@
           }
         ],
         "responses": {
-          "101": {
-            "description": "Switching to WebSocket protocol"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "404": {
-            "description": "Device not found"
-          }
-        }
+            "101": {
+                "description": "Switching to WebSocket protocol",
+                "headers": {
+                "Upgrade": {
+                    "schema": { "type": "string", "example": "websocket" }
+                },
+                "Connection": {
+                    "schema": { "type": "string", "example": "Upgrade" }
+                }
+                }
+            },
+            "401": {
+                "description": "Unauthorized"
+            },
+            "404": {
+                "description": "Device not found"
+            }
+            }
       }
     }
   }
