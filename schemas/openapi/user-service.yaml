@@ -1,0 +1,63 @@
+openapi: 3.0.3
+info:
+  title: User Service
+  description: Управляет профилями пользователей и их домами
+  version: 1.0.0
+  contact:
+    name: Kirill
+    email: kirill21012023@gmail.com
+
+servers:
+  - url: https://api.example.com/v1
+    description: Production server
+
+  - url: http://localhost:8080/v1
+    description: Development server
+
+paths:
+  /registration
+    post:
+      summary: Регистрация
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: Пользователь создан
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Некорректные данные
+        '500':
+          description: Ошибка сервера
+
+
+components:
+  schemas:
+
+    User:
+      type: object
+      properties:
+        name:
+          type: string
+          example: 'Kirill'
+        password:
+          type: string
+          example: 'Qwerty123'
+        email:
+          type: string
+          example: 'example@mail.com'
+        homes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Home'
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/Role'
+        

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Documentation - Microservices</title>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui.css" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        .topbar {
+            background-color: #1b1b1b;
+            padding: 10px;
+            color: white;
+            text-align: center;
+        }
+        .service-selector {
+            padding: 20px;
+            background: #f8f8f8;
+            border-bottom: 1px solid #e0e0e0;
+            text-align: center;
+        }
+        .service-selector button {
+            margin: 0 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        .service-selector button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="topbar">
+        <h1>Microservices API Documentation</h1>
+        <p>Проектная работа - Документация микросервисов</p>
+    </div>
+    <div class="service-selector">
+        <button onclick="loadSpec('user-service.yaml')">User Service</button>
+    </div>
+    <div id="swagger-ui"></div>
+
+    <script src="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui-bundle.js"></script>
+    <script>
+        let ui;
+        
+        function loadSpec(specFile) {
+            fetch(`../openapi/${specFile}`)
+                .then(response => response.text())
+                .then(yaml => {
+                    if (ui) {
+                        ui = SwaggerUIBundle({
+                            spec: yaml,
+                            dom_id: '#swagger-ui',
+                            presets: [SwaggerUIBundle.presets.apis],
+                            layout: "BaseLayout",
+                            deepLinking: true
+                        });
+                    } else {
+                        ui = SwaggerUIBundle({
+                            spec: yaml,
+                            dom_id: '#swagger-ui',
+                            presets: [SwaggerUIBundle.presets.apis],
+                            layout: "BaseLayout",
+                            deepLinking: true
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading spec:', error);
+                    document.getElementById('swagger-ui').innerHTML = 
+                        '<div style="padding: 20px; color: red;">❌ Ошибка загрузки спецификации. Убедитесь, что файл существует.</div>';
+                });
+        }
+        
+        // Загружаем первый сервис по умолчанию
+        loadSpec('order-service.yaml');
+    </script>
+</body>
+</html>
