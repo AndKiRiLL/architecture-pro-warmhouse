@@ -111,7 +111,7 @@
 
 ### 2. Документация API
 
-[Документация API](hhttps://andkirill.github.io/architecture-pro-warmhouse/)
+[Документация API](https://andkirill.github.io/architecture-pro-warmhouse/)
 
 # Задание 5. Работа с docker и docker-compose
 
