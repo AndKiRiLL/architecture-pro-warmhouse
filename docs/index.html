@@ -39,20 +39,23 @@
 </head>
 <body>
     <div class="topbar">
-        <h1>Microservices API Documentation</h1>
-        <p>Проектная работа - Документация микросервисов</p>
+        <h1>Документирование API микросервисов</h1>
     </div>
     <div class="service-selector">
-        <button onclick="loadSpec('user-service.yaml')">User Service</button>
+        <button onclick="loadSpec('user-service')">User Service</button>
     </div>
     <div id="swagger-ui"></div>
 
     <script src="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui-bundle.js"></script>
     <script>
         let ui;
+
+        const links = {
+            'user-service': 'https://github.com/AndKiRiLL/architecture-pro-warmhouse/blob/warmhouse/openapi/user-service.yaml'
+        }
         
         function loadSpec(specFile) {
-            fetch(`../openapi/${specFile}`)
+            fetch(links[specFile])
                 .then(response => response.text())
                 .then(yaml => {
                     if (ui) {
@@ -81,7 +84,7 @@
         }
         
         // Загружаем первый сервис по умолчанию
-        loadSpec('order-service.yaml');
+        loadSpec('user-service');
     </script>
 </body>
 </html>
