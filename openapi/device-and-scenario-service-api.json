@@ -11,6 +11,122 @@
   ],
   "paths": {
 
+    "/devices": {
+      "get": {
+        "summary": "Get user devices",
+        "description": "Получить все устройства пользователя",
+        "parameters": [
+          {
+            "name": "homeId",
+            "in": "query",
+            "description": "Фильтр по дому",
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of devices",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": { "type": "integer" },
+                      "name": { "type": "string" },
+                      "type": {
+                        "type": "object",
+                        "properties": {
+                          "id": { "type": "integer" },
+                          "name": { "type": "string" }
+                        }
+                      },
+                      "status": {
+                        "type": "string",
+                        "enum": ["online", "offline"]
+                      },
+                      "scenarios": {
+                        "type": "array",
+                        "items": { "type": "integer" }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/devices/{deviceId}": {
+      "get": {
+        "summary": "Get device by ID",
+        "description": "Получить конкретное устройство",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Device details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": { "type": "integer" },
+                    "name": { "type": "string" },
+                    "type": {
+                      "type": "object",
+                      "properties": {
+                        "id": { "type": "integer" },
+                        "name": { "type": "string" }
+                      }
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": ["online", "offline"]
+                    },
+                    "scenarios": {
+                      "type": "array",
+                      "items": { "type": "integer" }
+                    },
+                    "lastTelemetry": {
+                      "type": "object",
+                      "properties": {
+                        "timestamp": { "type": "integer" },
+                        "metrics": { "type": "object" }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Device not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+
     "/device/add": {
       "post": {
         "summary": "Add device",
