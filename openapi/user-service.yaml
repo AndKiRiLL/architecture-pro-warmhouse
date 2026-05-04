@@ -10,12 +10,11 @@ info:
 servers:
   - url: https://api.example.com/v1
     description: Production server
-
   - url: http://localhost:8080/v1
     description: Development server
 
 paths:
-  /registration
+  /registration:  # ← Здесь было пропущено двоеточие!
     post:
       summary: Регистрация
       requestBody:
@@ -36,22 +35,54 @@ paths:
         '500':
           description: Ошибка сервера
 
+  /login:  # Добавим эндпоинт для входа
+    post:
+      summary: Авторизация
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: example@mail.com
+                password:
+                  type: string
+                  example: Qwerty123
+      responses:
+        '200':
+          description: Успешный вход
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                  user:
+                    $ref: '#/components/schemas/User'
+        '401':
+          description: Неверные учётные данные
 
 components:
   schemas:
-
     User:
       type: object
       properties:
+        id:
+          type: integer
+          example: 1
         name:
           type: string
-          example: 'Kirill'
+          example: Kirill
         password:
           type: string
-          example: 'Qwerty123'
+          example: Qwerty123
         email:
           type: string
-          example: 'example@mail.com'
+          example: example@mail.com
         homes:
           type: array
           items:
@@ -60,4 +91,22 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Role'
-        
+
+    Home:
+      type: object
+      properties:
+        id:
+          type: integer
+        address:
+          type: string
+        name:
+          type: string
+
+    Role:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+          enum: [ADMIN, USER, GUEST]

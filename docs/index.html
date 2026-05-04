@@ -39,10 +39,11 @@
 </head>
 <body>
     <div class="topbar">
-        <h1>Документирование API микросервисов</h1>
+        <h1>🏠 Warmhouse Microservices API</h1>
+        <p>Документация микросервисов</p>
     </div>
     <div class="service-selector">
-        <button onclick="loadSpec('user-service')">User Service</button>
+        <button onclick="loadSpec('user-service')">👤 User Service</button>
     </div>
     <div id="swagger-ui"></div>
 
@@ -55,35 +56,57 @@
         }
         
         function loadSpec(specFile) {
-            fetch(links[specFile])
-                .then(response => response.text())
+            const url = links[specFile];
+            console.log('Загрузка:', url);
+            
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP ${response.status}`);
+                    }
+                    return response.text();
+                })
                 .then(yaml => {
+                    console.log('YAML загружен, длина:', yaml.length);
+                    
+                    // Проверяем, что YAML валидный
+                    try {
+                        // Простая проверка - ищем openapi версию
+                        if (!yaml.includes('openapi:')) {
+                            throw new Error('Файл не содержит openapi:');
+                        }
+                    } catch(e) {
+                        console.warn(e);
+                    }
+                    
+                    // Пересоздаём UI
+                    const uiConfig = {
+                        spec: yaml,
+                        dom_id: '#swagger-ui',
+                        presets: [SwaggerUIBundle.presets.apis],
+                        layout: "BaseLayout",
+                        deepLinking: true,
+                        docExpansion: "list"
+                    };
+                    
                     if (ui) {
-                        ui = SwaggerUIBundle({
-                            spec: yaml,
-                            dom_id: '#swagger-ui',
-                            presets: [SwaggerUIBundle.presets.apis],
-                            layout: "BaseLayout",
-                            deepLinking: true
-                        });
+                        ui = SwaggerUIBundle(uiConfig);
                     } else {
-                        ui = SwaggerUIBundle({
-                            spec: yaml,
-                            dom_id: '#swagger-ui',
-                            presets: [SwaggerUIBundle.presets.apis],
-                            layout: "BaseLayout",
-                            deepLinking: true
-                        });
+                        ui = SwaggerUIBundle(uiConfig);
                     }
                 })
                 .catch(error => {
                     console.error('Error loading spec:', error);
                     document.getElementById('swagger-ui').innerHTML = 
-                        '<div style="padding: 20px; color: red;">❌ Ошибка загрузки спецификации. Убедитесь, что файл существует.</div>';
+                        '<div style="padding: 20px; color: red; background: #ffebee; margin: 20px; border-radius: 5px;">' +
+                        '❌ Ошибка загрузки спецификации:<br>' +
+                        error.message + '<br><br>' +
+                        'Проверьте URL: ' + links['user-service'] + '<br>' +
+                        'Убедитесь, что YAML файл содержит корректный OpenAPI 3.0</div>';
                 });
         }
         
-        // Загружаем первый сервис по умолчанию
+        // Загружаем сервис
         loadSpec('user-service');
     </script>
 </body>
