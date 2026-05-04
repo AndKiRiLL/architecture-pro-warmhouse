@@ -2,53 +2,23 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Warmhouse API Documentation</title>
-    <link rel="stylesheet" type="text/css" href="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui.css">
-    <style>
-        body { margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
-        .header { background: #1b1b1b; color: white; padding: 20px; text-align: center; }
-        .header h1 { margin: 0; }
-        .header p { margin: 5px 0 0; opacity: 0.8; }
-        .error { padding: 20px; margin: 20px; background: #ffebee; border-left: 4px solid #f44336; color: #c62828; border-radius: 4px; }
-    </style>
+    <title>Warmhouse API</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui.css">
 </head>
 <body>
-    <div class="header">
-        <h1>🏠 Warmhouse Microservices API</h1>
-        <p>Документация микросервисов</p>
-    </div>
     <div id="swagger-ui"></div>
-
-    <script src="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui-bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui-bundle.js"></script>
     <script>
-        // Используем НОВЫЙ файл
-        const specUrl = 'https://raw.githubusercontent.com/AndKiRiLL/architecture-pro-warmhouse/warmhouse/openapi/user-service-api.json';
-        
-        fetch(specUrl)
-            .then(response => {
-                if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-                return response.text();
-            })
-            .then(yaml => {
-                console.log('✅ YAML загружен, размер:', yaml.length, 'байт');
-                SwaggerUIBundle({
-                    spec: yaml,
-                    dom_id: '#swagger-ui',
-                    presets: [SwaggerUIBundle.presets.apis],
-                    layout: 'BaseLayout',
-                    docExpansion: 'list'
-                });
-            })
-            .catch(error => {
-                document.getElementById('swagger-ui').innerHTML = 
-                    `<div class="error">
-                        <strong>❌ Ошибка загрузки API документации</strong><br>
-                        ${error.message}<br><br>
-                        <a href="${specUrl}" target="_blank" style="color: #007bff;">Открыть YAML файл напрямую</a>
-                    </div>`;
-                console.error('Ошибка:', error);
+        window.onload = function() {
+            SwaggerUIBundle({
+                url: "https://raw.githubusercontent.com/AndKiRiLL/architecture-pro-warmhouse/warmhouse/openapi/user-service-api.json",
+                dom_id: '#swagger-ui',
+                presets: [
+                    SwaggerUIBundle.presets.apis
+                ],
+                layout: "BaseLayout"
             });
+        }
     </script>
 </body>
 </html>
