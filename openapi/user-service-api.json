@@ -25,9 +25,9 @@
                   "username": { "type": "string" },
                   "password": { "type": "string" },
                   "email": { "type": "string", "format": "email" },
-                  "role": {
-                    "type": "string",
-                    "enum": ["Поддержка", "Маркетолог"]
+                  "roles": {
+                    "type": "array",
+                    "items": { "type": "integer" }
                   },
                   "homes": {
                     "type": "array",
@@ -120,9 +120,9 @@
                   "username": { "type": "string" },
                   "email": { "type": "string", "format": "email" },
                   "password": { "type": "string", "minLength": 8 },
-                  "role": {
-                    "type": "string",
-                    "enum": ["Поддержка", "Маркетолог"]
+                  "roles": {
+                    "type": "array",
+                    "items": { "type": "integer" }
                   },
                   "homes": {
                     "type": "array",
