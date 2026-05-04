@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "User Service API",
+    "title": "User & Home Service API",
     "version": "1.0.0"
   },
   "servers": [
@@ -24,7 +24,15 @@
                 "properties": {
                   "username": { "type": "string" },
                   "password": { "type": "string" },
-                  "email": { "type": "string" }
+                  "email": { "type": "string", "format": "email" },
+                  "role": {
+                    "type": "string",
+                    "enum": ["Поддержка", "Маркетолог"]
+                  },
+                  "homes": {
+                    "type": "array",
+                    "items": { "type": "integer" }
+                  }
                 }
               }
             }
@@ -56,6 +64,7 @@
             "application/json": {
               "schema": {
                 "type": "object",
+                "required": ["username", "password"],
                 "properties": {
                   "username": { "type": "string" },
                   "password": { "type": "string" }
@@ -108,8 +117,17 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "username": { "type": "string" },
                   "email": { "type": "string", "format": "email" },
-                  "password": { "type": "string", "minLength": 8 }
+                  "password": { "type": "string", "minLength": 8 },
+                  "role": {
+                    "type": "string",
+                    "enum": ["Поддержка", "Маркетолог"]
+                  },
+                  "homes": {
+                    "type": "array",
+                    "items": { "type": "integer" }
+                  }
                 }
               }
             }
@@ -126,7 +144,125 @@
             "description": "Unauthorized"
           },
           "409": {
-            "description": "Email already taken"
+            "description": "Username or email already taken"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+
+    "/home/add": {
+      "post": {
+        "summary": "Add home",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["name"],
+                "properties": {
+                  "name": { "type": "string" },
+                  "devices": { 
+                    "type": "array",
+                    "items": { "type": "integer" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Home created"
+          },
+          "400": {
+            "description": "Invalid input data"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+
+    "/home/{homeId}": {
+      "patch": {
+        "summary": "Update home",
+        "parameters": [
+          {
+            "name": "homeId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "devices": { 
+                    "type": "array",
+                    "items": { "type": "integer" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Home updated"
+          },
+          "400": {
+            "description": "Invalid input data"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Home not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+
+      "delete": {
+        "summary": "Delete home",
+        "parameters": [
+          {
+            "name": "homeId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Home deleted"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Home not found"
           },
           "500": {
             "description": "Internal server error"
