@@ -55,7 +55,7 @@
         }
         
         function loadSpec(specFile) {
-            fetch(link[specFile])
+            fetch(links[specFile])
                 .then(response => response.text())
                 .then(yaml => {
                     if (ui) {
