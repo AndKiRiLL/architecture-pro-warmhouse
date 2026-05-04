@@ -42,7 +42,7 @@
         <h1>Документирование API микросервисов</h1>
     </div>
     <div class="service-selector">
-        <button onclick="loadSpec('user-service')">User Service</button>
+        <button onclick="loadSpec('user-service.yaml')">User Service</button>
     </div>
     <div id="swagger-ui"></div>
 
@@ -51,11 +51,11 @@
         let ui;
 
         const links = {
-            'user-service': 'https://github.com/AndKiRiLL/architecture-pro-warmhouse/blob/warmhouse/openapi/user-service.yaml'
+            'user-service': 'https://raw.githubusercontent.com/AndKiRiLL/architecture-pro-warmhouse/warmhouse/openapi/user-service.yaml'
         }
         
         function loadSpec(specFile) {
-            fetch(links[specFile])
+            fetch(link[specFile])
                 .then(response => response.text())
                 .then(yaml => {
                     if (ui) {
