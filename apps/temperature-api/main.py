@@ -28,7 +28,7 @@ def generate_temperature_response(sensor_id: str, location: str):
         "sensor_type": "temperature",
         "location": location,
         "value": temperature,
-        "unit": "celsius",
+        "unit": "С°",
         "status": "active",
         "timestamp": now.isoformat(),
         "description": f"Temperature sensor in {location}"

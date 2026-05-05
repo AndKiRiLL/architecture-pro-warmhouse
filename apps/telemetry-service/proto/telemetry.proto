@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package telemetry;
+
+option go_package = "./proto/telemetry";
+
+service TelemetryService {
+  rpc GetTemperature (TemperatureRequest) returns (TemperatureResponse);
+  rpc StreamTemperatures (stream TemperatureRequest) returns (stream TemperatureResponse);
+}
+
+message TemperatureRequest {
+  string location = 1;
+  string sensor_id = 2;
+}
+
+message TemperatureResponse {
+  string sensor_id = 1;
+  string location = 2;
+  double value = 3;
+  string unit = 4;
+  string status = 5;
+  string timestamp = 6;
+}
