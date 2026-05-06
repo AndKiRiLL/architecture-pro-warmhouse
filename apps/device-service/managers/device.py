@@ -3,7 +3,6 @@ from models.device import Device, DeviceCreateRequestModel
 from db_init import db
 import aiohttp
 
-import aiohttp
 from logger_config import logger
 import os
 
@@ -29,7 +28,11 @@ async def get_temperature() -> float:
 
 
 async def get_all_devices() -> List[Device]:
-    return await db.get_all_devices()
+    devices = await db.get_all_devices()
+    for device in devices:
+        device.value = await get_temperature()
+
+    return devices
 
 async def get_device_by_id(device_id: int) -> Optional[Device]:
     device = await db.get_device_by_id(device_id)
